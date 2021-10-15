@@ -14,10 +14,8 @@ resource "aws_s3_bucket" "buckets" {
   }
 }
 
-
-
 resource "aws_s3_bucket" "bucket_functions" {
-  count = length(local.bucket_functions)
+  count  = length(local.bucket_functions)
   bucket = local.bucket_functions[count.index]
   acl    = "private"
 

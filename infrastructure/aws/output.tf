@@ -1,5 +1,5 @@
 output "bucket_names" {
-    value = local.bucket_names
+  value = local.bucket_names
 }
 
 output "bucket_functions" {
