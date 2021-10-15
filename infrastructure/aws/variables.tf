@@ -3,14 +3,23 @@ variable "region_id" {
 }
 
 variable "prefix" {
-  default = "prefix"
+  default = "a3"
 }
 
 variable "account" {
-  default = 123456789
+  default = 827486940322
 }
 
-# Prefix configuration and project common tags
+variable "zones" {
+  description = "Work Zones"
+  type        = list(string)
+  default = [
+    "landing-zone",
+    "processing-zone",
+    "delivery-zone"
+  ]
+}
+
 locals {
   prefix = "${var.prefix}-${terraform.workspace}"
   common_tags = {
@@ -24,40 +33,8 @@ locals {
     Environment  = terraform.workspace
     UserEmail    = "rony@a3data.com.br"
   }
-}
+  bucket_names = [for name in var.zones : "${local.prefix}-${name}-${var.account}"]
+  database_names = [for name in var.zones : "dl_${name}"]
 
-variable "bucket_names" {
-  description = "Create S3 buckets with these names"
-  type        = list(string)
-  default = [
-    "landing-zone",
-    "processing-zone",
-    "delivery-zone"
-  ]
-}
-
-variable "database_names" {
-  description = "Create databases with these names"
-  type        = list(string)
-  default = [
-    #landing-zone
-    "dl_landing_zone",
-    "dl_rocessing_zone",
-    "dl_delivery_zone"
-  ]
-}
-
-variable "bucket_paths" {
-  description = "Paths to S3 bucket used by the crawler"
-  type        = list(string)
-  default = [
-    "s3://landing-zone-123456789",
-    "s3://processing-zone-123456789",
-    "s3://delivery-zone-123456789"
-  ]
-}
-
-variable "bucket_functions" {
-  description = "Create S3 bucket for lambda functions"
-  default     = "temp-functions-rony"
+  bucket_functions = ["${local.prefix}-temp-functions-rony-${var.account}"]
 }

@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "buckets" {
-  count  = length(var.bucket_names)
-  bucket = "${local.prefix}-${var.bucket_names[count.index]}-${var.account}"
+  count  = length(local.bucket_names)
+  bucket = local.bucket_names[count.index]
   acl    = "private"
 
   tags = local.common_tags
@@ -17,7 +17,8 @@ resource "aws_s3_bucket" "buckets" {
 
 
 resource "aws_s3_bucket" "bucket_functions" {
-  bucket = "${local.prefix}-${var.bucket_functions}-${var.account}"
+  count = length(local.bucket_functions)
+  bucket = local.bucket_functions[count.index]
   acl    = "private"
 
   tags = local.common_tags

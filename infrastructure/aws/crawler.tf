@@ -1,11 +1,11 @@
 resource "aws_glue_crawler" "glue_crawler" {
-  count         = length(var.database_names)
-  database_name = var.database_names[count.index]
-  name          = "${local.prefix}-${var.database_names[count.index]}_crawler"
+  count         = length(local.database_names)
+  database_name = local.database_names[count.index]
+  name          = "${local.prefix}-${local.database_names[count.index]}_crawler"
   role          = aws_iam_role.glue_role.arn
 
   s3_target {
-    path = var.bucket_paths[count.index]
+    path = "s3://${local.bucket_names[count.index]}"
   }
 
   tags = local.common_tags
