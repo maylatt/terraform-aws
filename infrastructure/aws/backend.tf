@@ -1,4 +1,4 @@
-# Backend configuration require a AWS storage bucket.
+# Backend configuration require a AWS storage bucket
 terraform {
   backend "s3" {
     bucket = "a3-terraform-backend-827486940322"
