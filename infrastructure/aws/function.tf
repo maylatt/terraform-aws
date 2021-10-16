@@ -19,7 +19,7 @@ resource "aws_lambda_function" "decompresss3" {
   environment {
     variables = {
       key_1 = "value_1"
-      key_2 = "value_2"
+      key_2 = "value 2"
     }
   }
 
