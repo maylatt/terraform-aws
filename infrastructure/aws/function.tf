@@ -1,7 +1,7 @@
 data "archive_file" "hello_world" {
   type        = "zip"
   source_file = "../../functions/fn_example_script/hello-world.py"
-  output_file = "../../functions/fn_example_script/hello-world.zip"
+  output_path = "../../functions/fn_example_script/hello-world.zip"
 
 }
 
