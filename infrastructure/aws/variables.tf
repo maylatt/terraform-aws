@@ -33,6 +33,8 @@ locals {
     Environment  = terraform.workspace
     UserEmail    = "rony@a3data.com.br"
   }
+
+  backend_bucket = "${local.prefix}-terraform-backend-${var.account}"
   bucket_names   = [for name in var.zones : "${local.prefix}-${name}-${var.account}"]
   database_names = [for name in var.zones : "dl_${name}"]
   bucket_functions = [
