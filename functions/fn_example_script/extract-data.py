@@ -19,7 +19,8 @@ def handler(event, context):
 
     s3 = boto3.client("s3")
     object_name = f'{bucket_folder}/{file_name}'
-    s3.upload_file(file_name, bucket_name, object_name)
+    file_path = f'{tmp_folder_path}/{file_name}'
+    s3.upload_file(file_path, bucket_name, object_name)
 
     return {
         'statusCode': 200,
