@@ -1,11 +1,11 @@
-output "bucket_names" {
-  value = local.bucket_names
+output "bucket_name" {
+  value = var.bucket_name
 }
 
-output "bucket_functions" {
-  value = local.bucket_functions
+output "lambda_function_name" {
+  value = local.lambda_function_name
 }
 
-output "database_names" {
-  value = local.database_names
+output "database_name" {
+  value = var.database_name
 }
