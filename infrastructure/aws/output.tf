@@ -1,5 +1,5 @@
 output "bucket_name" {
-  value = var.bucket_name
+  value = local.bucket_name
 }
 
 output "lambda_function_name" {
