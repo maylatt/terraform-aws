@@ -10,14 +10,8 @@ variable "account" {
   default = 827486940322
 }
 
-variable "zones" {
-  description = "Work Zones"
-  type        = list(string)
-  default = [
-    "landing-zone",
-    "processing-zone",
-    "delivery-zone"
-  ]
+variable "database_name" {
+  default = "onboarding-a3-"
 }
 
 locals {
@@ -33,9 +27,6 @@ locals {
     Environment  = terraform.workspace
     UserEmail    = "rony@a3data.com.br"
   }
-  bucket_names   = [for name in var.zones : "${local.prefix}-${name}-${var.account}"]
-  database_names = [for name in var.zones : "dl_${name}"]
-  bucket_functions = [
-    "${local.prefix}-temp-functions-rony-${var.account}"
-  ]
+  bucket_name          = "${local.prefix}-onboarding-terraform-${var.account}"
+  lambda_function_name = "${local.prefix}_extract_data"
 }
