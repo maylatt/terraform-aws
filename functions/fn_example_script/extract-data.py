@@ -6,8 +6,9 @@ tmp_folder_path = "/tmp"
 bucket_folder = "raw-data"
 
 def get_data(file_url, file_name):
-    urllib.request.urlretrieve(file_url, f'{tmp_folder_path}/{file_name}')
-    return True
+    output_path = f'{tmp_folder_path}/{file_name}'
+    urllib.request.urlretrieve(file_url, output_path)
+    return output_path
 
 def handler(event, context):
 
@@ -15,11 +16,10 @@ def handler(event, context):
     file_url = event['FILE_URL']
 
     file_name = file_url.split('/')[-1]
-    res = get_data(file_url, file_name)
+    file_path = get_data(file_url, file_name)
 
     s3 = boto3.client("s3")
     object_name = f'{bucket_folder}/{file_name}'
-    file_path = f'{tmp_folder_path}/{file_name}'
     s3.upload_file(file_path, bucket_name, object_name)
 
     return {
